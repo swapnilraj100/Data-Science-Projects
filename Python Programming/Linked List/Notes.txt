@@ -1,7 +1,0 @@
-* In Python, the __init__ method is a special method known as the constructor.
-  It is automatically invoked when a new instance of a class is created, 
-  allowing you to initialize the attributes of the object.
-  The self parameter in the __init__ method refers to the instance of the class being created
-  It allows you to set attributes specific to that instance.In your Node class,the __init__ method 
-  initializes the key attribute with the value k sets the next attribute to None,
-  indicating that the node does not point to any other node initially
