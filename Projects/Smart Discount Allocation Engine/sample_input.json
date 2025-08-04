@@ -11,9 +11,9 @@
     {
       "id": "A2",
       "performanceScore": 70,
-      "seniorityMonths": 6,
+      "seniorityMonths": 30,
       "targetAchievedPercent": 60,
-      "activeClients": 8
+      "activeClients": 12
     }
   ]
 }

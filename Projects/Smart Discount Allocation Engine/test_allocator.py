@@ -1,5 +1,5 @@
 import unittest
-from allocator import allocate_discounts
+from allocator_engine import allocate_discounts
 
 class TestAllocator(unittest.TestCase):
 

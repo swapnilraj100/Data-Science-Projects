@@ -1,5 +1,5 @@
 import json
-from allocator import allocate_discounts
+from allocator_engine import allocate_discounts
 
 def main():
     with open("sample_input.json") as f:
