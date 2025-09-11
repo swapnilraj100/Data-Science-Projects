@@ -11,7 +11,7 @@ The full research details are documented in the paper:
 ```
 ├── BiLSTM__Variations.ipynb         # BiLSTM, Stacked, Dropout, CNN-BiLSTM, Attention-BiLSTM
 ├── Fine_Tuned_MuRIL.ipynb           # Transformer-based fine-tuning (MuRIL)
-├── BERT_Variations_Clean2.ipynb     # mBERT, IndicBERT, XLM-RoBERTa comparisons
+├── BERT_Variations.ipynb     # mBERT, IndicBERT, MuRIL,XLM-RoBERTa comparisons
 ├── SACM_NLP_Reserach_PaperWork.pdf  # Research paper with methodology & results
 └── README.md                        # Project documentation
 ```
