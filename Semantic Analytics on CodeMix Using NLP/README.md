@@ -1,4 +1,4 @@
-# SACMT: South-Indian ASR Hybrid Models
+# SACMT: Semantic Analysis on Code Mix Text
 
 This repository contains Jupyter notebooks for training and evaluating hybrid Automatic Speech Recognition (ASR) models for three South-Indian languages:
 
