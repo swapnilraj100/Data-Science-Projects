@@ -1,92 +1,99 @@
-# 🧠 Semantic Analytics on CodeMix Using NLP
+# SACMT: South-Indian ASR Hybrid Models
 
-This project addresses the challenge of **sentiment analysis for Tamil-English code-mixed text**, commonly found in social media.  
-It builds an **end-to-end semantic analytics pipeline** and evaluates models ranging from classical ML to advanced hybrid deep learning architectures.
+This repository contains Jupyter notebooks for training and evaluating hybrid Automatic Speech Recognition (ASR) models for three South-Indian languages:
 
----
+- Kannada: `Kannada_Hybrid_Model.ipynb`
+- Malayalam: `Malyalam_Hybrid_Model.ipynb`
+- Tamil: `Tamil_Hybrid_Model.ipynb`
 
-## 📌 Project Overview
-- **Domain**: Natural Language Processing (NLP), Sentiment Analysis.
-- **Dataset**: `tamil_sentiment_full.csv` – Tamil-English code-mixed text with sentiment labels.
-- **Objective**: Accurately classify sentiments (positive, negative, neutral) in noisy, morphologically-rich, code-switched text.
+Each notebook encapsulates data preparation, acoustic/lexical modeling, and evaluation steps for a hybrid (e.g., HMM + DNN) pipeline tailored to the respective language.
 
----
+## Features
+- End-to-end, language-specific ASR workflows in notebooks.
+- Modular cells for data preprocessing, feature extraction, model training, and decoding.
+- Windows-friendly commands and instructions using PowerShell.
 
-## 📂 Repository Structure
-- **Datasets Used/**
-  - `tamil_sentiment_full.csv` → Tamil-English code-mixed sentiment dataset.
+## Prerequisites
+- OS: Windows 10/11 (PowerShell 5.1)
+- Python 3.9+ recommended
+- Jupyter Notebook or VS Code with the Jupyter extension
+- GPU (optional) for faster training
 
-- **Models Trained/**
-  - `BERT_Transformer Models.ipynb` → Transformer-based sentiment classification.
-  - `FastText_BiLSTM_CharCNN_Hybrid_Model.ipynb` → Combines FastText embeddings, BiLSTM, and CharCNN.
-  - `Transformer_BiGRU_CNN _Hybrid_Model.ipynb` → Hybrid model with Transformer encoders, BiGRU, and CNN layers.
+## Quick Start
 
-- **Reports/**
-  - `Best Transformer Hybrid Model Report.pdf` → Detailed evaluation of the best hybrid model.
-  - `SACM_NLP_Reserach_PaperWork.pdf` → Full research methodology and results.
+1. Create and activate a virtual environment (recommended):
 
----
+```powershell
+# From the repository root
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install --upgrade pip
+```
 
-## ⚙️ Techniques Explored
-- **Classical ML**: TF-IDF + SVM, Logistic Regression.
-- **Deep Learning**:
-  - BiLSTM, CNN-BiLSTM, Attention-based RNNs.
-  - FastText embeddings with hybrid layers.
-- **Transformers**: BERT,
-  - mBERT
-  - XLM-RoBERTa
-  - IndicBERT
-  - MURIL
-- **Hybrid Architectures**:
-  - CharCNN + BiLSTM + Attention.
-  - **MuRIL-BERT + CharCNN + CNN-BiGRU + Attention + Statistical Features** (Best Model).
+2. Install core dependencies:
 
----
+```powershell
+# If a requirements file exists, prefer that
+if (Test-Path -Path "requirements.txt") { pip install -r requirements.txt } else { 
+    pip install jupyter numpy scipy pandas scikit-learn matplotlib librosa torch torchaudio
+}
+```
 
-## 🏆 Best Model: Hybrid MuRIL-BERT Fusion
-### Architecture:
-- **MuRIL-BERT embeddings** for multilingual representation.
-- **CharCNN** for character-level noise robustness.
-- **Word-level CNN (multi-kernel)** for n-gram features.
-- **BiGRU with Attention** for contextual sequence learning.
-- **Statistical feature fusion** (TF-IDF, sentiment lexicons).
-  
-### Performance:
-- Achieved **highest F1-score and accuracy** on Tamil-English dataset.
-- Outperformed standalone BERT, BiLSTM, CNN, and FastText-based hybrids.
-- Especially strong on **noisy social media text**.
+3. Launch Jupyter and open a notebook:
 
----
+```powershell
+jupyter notebook
+```
 
-## 🚀 How to Run
-1. Clone the repo:
-   ```bash
-   git clone <repo_url>
-   cd "Semantic Analytics on CodeMix Using NLP"
-Install dependencies:
+Open one of:
+- `Kannada_Hybrid_Model.ipynb`
+- `Malyalam_Hybrid_Model.ipynb`
+- `Tamil_Hybrid_Model.ipynb`
 
-bash
-Copy code
-pip install -r requirements.txt
-(include TensorFlow / PyTorch, HuggingFace Transformers, FastText, etc.)
+Execute cells sequentially. Adjust paths and hyperparameters as needed.
 
-Run Jupyter notebooks in Models Trained/ to reproduce experiments.
+## Notebook Structure (Typical)
+- Data setup: Paths, dataset checks, train/val/test split.
+- Preprocessing: Audio resampling, trimming, normalization, feature extraction (MFCC/FBANK).
+- Lexicon/Language model: Grapheme-to-phoneme (G2P) or direct lexicon loading; optional n-gram LM.
+- Acoustic model: Hybrid HMM-DNN (e.g., GMM init, then DNN).
+- Decoding & Evaluation: Beam search parameters, WER/CER metrics, confusion analysis.
 
-📊 Key Findings
-Classical ML (SVM, Logistic Regression) provides baselines but underperforms.
+## Data
+- Place raw audio and transcripts in a language-specific folder (e.g., `data/kannada`, `data/malayalam`, `data/tamil`).
+- Expected structure (example):
+  - `data/<lang>/audio/*.wav`
+  - `data/<lang>/train.tsv`, `dev.tsv`, `test.tsv` (or CSV), with columns: `path`, `text`.
+- Update paths in the first cells of each notebook.
 
-BiLSTM and CNN-based hybrids improve performance but still struggle with noisy tokens.
+## Configuration
+- Key parameters are defined at the top of each notebook:
+  - Sampling rate, feature type and dimensions
+  - Model architecture and training schedule
+  - Decoding beam width and LM weights
 
-Hybrid MuRIL-BERT with CharCNN + CNN-BiGRU + Attention + Statistical Features delivers state-of-the-art results for Tamil-English code-mixed sentiment analysis.
+## Tips for Windows/PowerShell
+- Use backslashes in paths or double-quoted strings, e.g., `"f:\\data\\kannada"`.
+- If you encounter permission issues, run PowerShell as Administrator.
+- For long paths, enable long path support in Windows if needed.
 
-📌 Future Work
-Deploy models as an API using FastAPI + Docker.
+## Reproducibility
+- Set random seeds in notebooks for `numpy`, `torch`, and any other libraries.
+- Pin dependency versions via `requirements.txt` for consistent results.
+- Document dataset versions and preprocessing steps.
 
-Integrate MLflow for experiment tracking.
+## Troubleshooting
+- Package installation errors: ensure `.venv` is active and `pip` is updated.
+- CUDA/GPU issues: install a PyTorch build matching your CUDA version, or fall back to CPU.
+- Audio loading errors: confirm WAV format compatibility and sampling rates.
 
-👨‍💻 Author
-Swapnil Raj (M.Tech Research, NIT Jamshedpur)
+## Roadmap
+- Add `requirements.txt` with pinned versions per language.
+- Export trained models and decoding scripts for CLI usage.
+- Add data download helpers and automated evaluation reports.
 
-Under the guidance of Dr. Jitesh Pradhan
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Department of Computer Science & Engineering, NIT Jamshedpur
+## Citation
+If you use these notebooks, please cite appropriately. Add a BibTeX entry here when available.
